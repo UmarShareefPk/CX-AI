@@ -44,6 +44,10 @@ app.UseAuthorization();
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false }).AllowAnonymous();
 app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = c => c.Tags.Contains("ready") }).AllowAnonymous();
 
+// A browser pointed at the API's address lands here instead of a bare 401 (every other route requires a bearer token).
+app.MapGet("/", () => Results.Ok(new { service = "CX Insight API", status = "running", health = "/health/ready", note = "Endpoints under /api require a bearer token from POST /api/auth/login." }))
+    .AllowAnonymous().ExcludeFromDescription();
+
 app.MapAuth();
 app.MapData();
 app.MapAi();
