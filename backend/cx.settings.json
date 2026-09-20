@@ -1,0 +1,30 @@
+{
+  "Mongo": {
+    "ConnectionString": "mongodb://localhost:27017",
+    "Database": "cx"
+  },
+  "Ai": {
+    "Default": { "Provider": "ollama", "Model": "gemma4:e4b" },
+    "MaxToolIterations": 8,
+    "Temperature": 0.2,
+    "MaxOutputTokens": 2048,
+    "RequestTimeoutSeconds": 240,
+    "MaxHistoryTurns": 8,
+    "Ollama": { "Endpoint": "http://localhost:11434" },
+    "OpenAI": { "Models": [ "gpt-5-mini", "gpt-5" ] },
+    "Anthropic": { "Models": [ "claude-sonnet-5", "claude-opus-5", "claude-haiku-4-5-20251001" ] },
+    "Google": { "Models": [ "gemini-2.5-flash", "gemini-2.5-pro" ] },
+    "Embeddings": {
+      "Provider": "ollama",
+      "Model": "embeddinggemma",
+      "DocumentTemplate": "title: {title} | text: {text}",
+      "QueryTemplate": "task: search result | query: {query}",
+      "BatchSize": 16
+    }
+  },
+  "Mcp": {
+    "Command": "dotnet",
+    "ServerDll": "mcp/Cx.McpServer.dll",
+    "IdleMinutes": 15
+  }
+}

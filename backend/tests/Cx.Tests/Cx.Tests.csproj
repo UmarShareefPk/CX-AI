@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="ModelContextProtocol.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Cx.Core\Cx.Core.csproj" />
+    <ProjectReference Include="..\..\src\Cx.Ai\Cx.Ai.csproj" />
+    <ProjectReference Include="..\..\src\Cx.Api\Cx.Api.csproj" />
+  </ItemGroup>
+  <Import Project="..\..\build\CopyMcpServer.targets" />
+</Project>

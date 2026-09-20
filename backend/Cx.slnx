@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Cx.Ai/Cx.Ai.csproj" />
+    <Project Path="src/Cx.Api/Cx.Api.csproj" />
+    <Project Path="src/Cx.Core/Cx.Core.csproj" />
+    <Project Path="src/Cx.McpServer/Cx.McpServer.csproj" />
+    <Project Path="src/Cx.Seeder/Cx.Seeder.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Cx.Tests/Cx.Tests.csproj" />
+  </Folder>
+</Solution>

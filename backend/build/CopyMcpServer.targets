@@ -1,0 +1,28 @@
+<Project>
+  <!--
+    The agent talks to the MCP server over stdio and must launch the BUILT server DLL (not "dotnet run").
+    This builds Cx.McpServer and copies its output to <output>/mcp/ next to the consuming project.
+  -->
+  <PropertyGroup>
+    <McpServerBinDir>$(MSBuildThisFileDirectory)..\src\Cx.McpServer\bin\$(Configuration)\$(TargetFramework)\</McpServerBinDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\src\Cx.McpServer\Cx.McpServer.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <Target Name="CopyMcpServerToOutput" AfterTargets="Build">
+    <ItemGroup>
+      <McpServerFile Include="$(McpServerBinDir)**\*" Exclude="$(McpServerBinDir)**\*.pdb" />
+    </ItemGroup>
+    <Copy SourceFiles="@(McpServerFile)"
+          DestinationFiles="@(McpServerFile->'$(OutDir)mcp\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="CopyMcpServerToPublish" AfterTargets="ComputeResolvedFilesToPublishList">
+    <ItemGroup>
+      <_McpPublishFile Include="$(McpServerBinDir)**\*" Exclude="$(McpServerBinDir)**\*.pdb" />
+      <ResolvedFileToPublish Include="@(_McpPublishFile)" RelativePath="mcp\%(RecursiveDir)%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" />
+    </ItemGroup>
+  </Target>
+</Project>
