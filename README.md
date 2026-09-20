@@ -42,6 +42,17 @@ Empty means same origin: in development the dev server's `proxy.conf.json` forwa
 in production a reverse proxy is expected to do the same. To call an API on another origin, set for example `apiBaseUrl: 'https://cx-api.example.com'` and add the
 app's origin to `Cors:AllowedOrigins` in `backend/src/Cx.Api/appsettings.json`. The value is applied in one place (`core/api-config.ts`), not at each call site.
 
+### Debugging the MCP server
+
+The API starts `Cx.McpServer` as a child process (first AI question per user; idle ones stop after 15 minutes), so F5 on that project is not the way in.
+Start the API with the **`http (debug MCP server)`** launch profile, or set `CX_MCP_DEBUG` in the API's environment (children inherit it):
+
+- `CX_MCP_DEBUG=1`: the new process calls `Debugger.Launch()`; choose your open Visual Studio instance and breakpoints in `CxTools.cs` etc. hit.
+- `CX_MCP_DEBUG=wait`: it prints its PID to stderr and waits up to 2 minutes for **Debug > Attach to Process**.
+
+The flag is compiled out of Release builds. While you are paused, the API's call may time out. The server's stderr appears in the API log at Debug level for the
+`Cx.Ai.Agent.McpToolProvider` category.
+
 ### Demo logins (plain-text passwords by request; produced by the seeder, which is deterministic)
 
 | Username | Password | Sees |

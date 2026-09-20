@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
+DebugSupport.AttachIfRequested(); // opt-in via CX_MCP_DEBUG; see DebugSupport
+
 var builder = Host.CreateApplicationBuilder(args);
 builder.Configuration.AddCxSharedSettings();
 

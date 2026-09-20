@@ -12,7 +12,8 @@
 
   <Target Name="CopyMcpServerToOutput" AfterTargets="Build">
     <ItemGroup>
-      <McpServerFile Include="$(McpServerBinDir)**\*" Exclude="$(McpServerBinDir)**\*.pdb" />
+      <!-- Symbols (.pdb) are copied too so a debugger attached to the MCP process can bind breakpoints. Publish leaves them out. -->
+      <McpServerFile Include="$(McpServerBinDir)**\*" />
     </ItemGroup>
     <Copy SourceFiles="@(McpServerFile)"
           DestinationFiles="@(McpServerFile->'$(OutDir)mcp\%(RecursiveDir)%(Filename)%(Extension)')"
